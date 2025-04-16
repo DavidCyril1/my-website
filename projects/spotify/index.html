@@ -3,40 +3,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify Downloader</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://david-cyril.net.ng/css/spotify.css">
+    <title>Spotify Music Downloader | Premium Quality MP3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --spotify-green: #1DB954;
+            --spotify-dark: #191414;
+            --spotify-light: #FFFFFF;
+            --spotify-gray: #B3B3B3;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--spotify-dark);
+            color: var(--spotify-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(29, 185, 84, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(29, 185, 84, 0.1) 0%, transparent 30%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            background: rgba(25, 20, 20, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .logo i {
+            color: var(--spotify-green);
+            font-size: 32px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--spotify-green), #2ecc71);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            color: var(--spotify-gray);
+            font-size: 14px;
+        }
+
+        .download-form {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--spotify-gray);
+        }
+
+        .input-group {
+            display: flex;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            font-size: 16px;
+            background: rgba(50, 50, 50, 0.5);
+            color: var(--spotify-light);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            background: rgba(70, 70, 70, 0.5);
+        }
+
+        .input-group button {
+            padding: 0 25px;
+            border: none;
+            background: var(--spotify-green);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-group button:hover {
+            background: #1ed760;
+        }
+
+        .result-container {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .music-card {
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.8), rgba(50, 50, 50, 0.6));
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .album-art {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-info {
+            flex: 1;
+        }
+
+        .music-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .music-artist {
+            color: var(--spotify-gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .music-duration {
+            color: var(--spotify-gray);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            background: var(--spotify-green);
+            color: white;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3);
+        }
+
+        .download-btn:hover {
+            background: #1ed760;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(29, 185, 84, 0.4);
+        }
+
+        .download-btn i {
+            font-size: 18px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--spotify-green);
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                border-radius: 0;
+                max-width: 100%;
+                min-height: 100vh;
+            }
+            
+            .music-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .input-group input {
+                border-radius: 10px 10px 0 0;
+            }
+            
+            .input-group button {
+                border-radius: 0 0 10px 10px;
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Spotify Downloader</h2>
-        <p>Download Spotify tracks in MP3 format easily!</p>
-        <input type="text" id="songUrl" class="input-field" placeholder="Paste Spotify song URL here">
-        <button id="fetchButton" class="fetch-button">Download</button>
-
-        <!-- Loading Bar -->
-        <div id="loadingBar" class="loading-bar"></div>
-
-        <!-- Result Section -->
-        <div id="resultSection" class="result-section" style="display: none;">
-            <h3>Song Details</h3>
-            <div class="song-details">
-                <img id="thumbnail" src="" alt="Song Thumbnail">
-                <div>
-                    <p id="channel"></p>
-                    <p id="title"></p>
-                    <p id="duration"></p>
-                </div>
+        <header>
+            <div class="logo">
+                <i class="fab fa-spotify"></i>
+                <h1>Spotify Downloader</h1>
             </div>
-            <div class="download-buttons">
-                <a href="#" id="downloadMp3Button" target="_blank">Download MP3</a>
+            <p class="subtitle">Download high-quality MP3s from Spotify</p>
+        </header>
+
+        <div class="download-form">
+            <div class="form-group">
+                <label for="spotify-url">Spotify Song URL</label>
+                <div class="input-group">
+                    <input type="url" id="spotify-url" placeholder="https://open.spotify.com/track/..." required>
+                    <button id="download-btn"><i class="fas fa-search"></i> Find</button>
+                </div>
+                <div class="error-message" id="error-message"></div>
             </div>
         </div>
 
-        <!-- Message Section -->
-        <div id="message" class="message"></div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Searching for song...</p>
+        </div>
+
+        <div class="result-container" id="result-container">
+            <div class="music-card">
+                <img src="" alt="Album art" class="album-art" id="album-art">
+                <div class="music-info">
+                    <h3 class="music-title" id="music-title"></h3>
+                    <p class="music-artist" id="music-artist"></p>
+                    <p class="music-duration">
+                        <i class="far fa-clock"></i>
+                        <span id="music-duration"></span>
+                    </p>
+                </div>
+            </div>
+            <button class="download-btn" id="start-download">
+                <i class="fas fa-download"></i> Download MP3
+            </button>
+        </div>
     </div>
 
-    <script src="https://david-cyril.net.ng/assets/spotify.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadBtn = document.getElementById('download-btn');
+            const spotifyUrlInput = document.getElementById('spotify-url');
+            const resultContainer = document.getElementById('result-container');
+            const loadingElement = document.getElementById('loading');
+            const errorMessage = document.getElementById('error-message');
+            const albumArt = document.getElementById('album-art');
+            const musicTitle = document.getElementById('music-title');
+            const musicArtist = document.getElementById('music-artist');
+            const musicDuration = document.getElementById('music-duration');
+            const startDownloadBtn = document.getElementById('start-download');
+
+            let downloadLink = '';
+
+            downloadBtn.addEventListener('click', fetchSpotifyTrack);
+            spotifyUrlInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') fetchSpotifyTrack();
+            });
+
+            startDownloadBtn.addEventListener('click', function() {
+                if (downloadLink) {
+                    // Create a temporary anchor element to force download
+                    const a = document.createElement('a');
+                    a.href = downloadLink;
+                    a.download = `${musicTitle.textContent} - ${musicArtist.textContent}.mp3`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            });
+
+            function fetchSpotifyTrack() {
+                const url = spotifyUrlInput.value.trim();
+                
+                // Validate URL
+                if (!url) {
+                    showError('Please enter a Spotify URL');
+                    return;
+                }
+                
+                if (!isValidSpotifyUrl(url)) {
+                    showError('Please enter a valid Spotify track URL');
+                    return;
+                }
+                
+                // Hide previous results and errors
+                resultContainer.style.display = 'none';
+                hideError();
+                loadingElement.style.display = 'block';
+                
+                // Encode the URL for the API
+                const encodedUrl = encodeURIComponent(url);
+                const apiUrl = `https://apis.davidcyriltech.my.id/spotifydl?url=${encodedUrl}`;
+                
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            displayResult(data);
+                            downloadLink = data.DownloadLink;
+                        } else {
+                            throw new Error('Failed to fetch Spotify track data');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showError('Failed to find Spotify track. Please check the URL and try again.');
+                    })
+                    .finally(() => {
+                        loadingElement.style.display = 'none';
+                    });
+            }
+            
+            function isValidSpotifyUrl(url) {
+                return /open\.spotify\.com\/track\//i.test(url);
+            }
+            
+            function displayResult(data) {
+                // Set album art
+                albumArt.src = data.thumbnail;
+                
+                // Set music info
+                musicTitle.textContent = data.title;
+                musicArtist.textContent = data.channel;
+                musicDuration.textContent = data.duration;
+                
+                // Show result container
+                resultContainer.style.display = 'block';
+                
+                // Scroll to results
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+            
+            function hideError() {
+                errorMessage.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

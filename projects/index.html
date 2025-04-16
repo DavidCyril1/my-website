@@ -1,379 +1,472 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>David Cyril | Project</title>
-    <meta name="description" content="Explore groundbreaking projects by David Cyril">
-    <link rel="canonical" href="index.html">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>David Cyril | Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-purple: #7C3AED;
-            --secondary-blue: #2563EB;
-            --light-bg: #f8fafc;
-            --text-dark: #1e293b;
-            --gradient: linear-gradient(135deg, var(--primary-purple), var(--secondary-blue));
+            --primary: #25D366; /* WhatsApp green */
+            --primary-dark: #128C7E;
+            --secondary: #075E54;
+            --accent: #FFD700;
+            --dark: #121212;
+            --darker: #0A0A0A;
+            --light: #FFFFFF;
+            --gray: #B0B0B0;
+            --card-bg: #1E1E1E;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
-        /* Loading Spinner */
-        .dc-spinner {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            display: none;
-        }
-        .dc-spinner .spinner {
-            width: 100px;
-            height: 100px;
-            border: 3px solid rgba(124,58,237,0.1);
-            border-top-color: var(--primary-purple);
-            border-radius: 50%;
-            animation: spin 1.5s linear infinite;
-        }
-        .dc-spinner .spinner-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--primary-purple);
-            font-size: 14px;
-            font-weight: 600;
-            display: flex;
-            gap: 2px;
-        }
-        .dc-spinner .spinner-text span {
-            animation: letterGlow 1.2s ease-in-out infinite;
-            opacity: 0.5;
-            font-family: monospace;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes letterGlow {
-            0%, 100% { opacity: 0.4; text-shadow: 0 0 5px rgba(124,58,237,0.2); }
-            50% { opacity: 1; text-shadow: 0 0 15px rgba(124,58,237,0.3); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--light-bg);
-            color: var(--text-dark);
-            overflow-x: hidden;
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 0.05) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 0.05) 0px, transparent 50%);
         }
 
-        /* Modern Navbar */
-        .navbar {
-            background: rgba(248,250,252,0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .logo-container {
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .logo-flip {
-            position: relative;
-            width: 180px;
-            height: 50px;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-
-        .logo-flip.flipped {
-            transform: rotateY(180deg);
-        }
-
-        .logo-front, .logo-back {
-            position: absolute;
+        /* Header */
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
             width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
+            z-index: 100;
+            background: rgba(18, 18, 18, 0.95);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
             display: flex;
             align-items: center;
-            padding: 10px;
-            border-radius: 8px;
+            gap: 10px;
         }
 
-        .logo-front {
-            background: white;
-            transform: rotateY(0deg);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .logo i {
+            color: var(--accent);
         }
 
-        .logo-back {
-            background: var(--gradient);
-            transform: rotateY(180deg);
-            justify-content: center;
-            font-weight: 700;
-            color: white;
-        }
-
-        .nav-link {
-            color: var(--text-dark) !important;
-            position: relative;
-            margin: 0 15px;
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
             transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-link::after {
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a::after {
             content: '';
             position: absolute;
             bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary-purple);
-            transition: all 0.3s ease;
+            background: var(--accent);
+            transition: width 0.3s ease;
         }
 
-        .nav-link:hover::after {
+        nav a:hover::after {
             width: 100%;
         }
 
         /* Hero Section */
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            background: var(--gradient);
-            background-attachment: fixed;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
+        .hero {
+            padding: 180px 5% 80px;
             text-align: center;
-            padding: 4rem 0;
-            color: white;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        /* Typewriter Effect */
-        .typewriter {
-            font-size: 1.5rem;
-            color: white;
-            border-right: 2px solid white;
-            white-space: nowrap;
-            overflow: hidden;
+            max-width: 800px;
             margin: 0 auto;
-            letter-spacing: 2px;
-            animation: 
-                typing 3.5s steps(40, end),
-                blink-caret 0.75s step-end infinite;
+            position: relative;
         }
 
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--accent), var(--light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
         }
 
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: white; }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 40px;
         }
 
-        /* Project Grid */
-        .project-grid {
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--primary);
+            color: var(--light);
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            margin: 20px 0;
+        }
+
+        .whatsapp-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Projects Grid */
+        .projects {
+            padding: 60px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            border-radius: 3px;
+        }
+
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 0;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 40px;
         }
 
         .project-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
+            background: var(--card-bg);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
         }
 
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, var(--primary-purple), transparent);
-            transform: rotate(45deg);
-            animation: borderFlow 3s linear infinite;
-            opacity: 0.1;
+        .project-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        @keyframes borderFlow {
-            0% { transform: rotate(45deg) translateX(-50%); }
-            100% { transform: rotate(45deg) translateX(50%); }
+        .project-card:hover .project-img {
+            transform: scale(1.05);
         }
 
-        .project-icon {
-            font-size: 2.5rem;
-            color: var(--primary-purple);
-            margin-bottom: 1rem;
+        .project-info {
+            padding: 30px;
+        }
+
+        .project-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .project-info p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tag {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--accent);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .visit-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: var(--light);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .visit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .visit-btn i {
+            font-size: 1.1rem;
         }
 
         /* Footer */
-        .main-footer {
-            background: white;
-            border-top: 1px solid rgba(0,0,0,0.1);
-            padding: 2rem 0;
+        footer {
+            text-align: center;
+            padding: 50px 5% 30px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--gray);
+            background: var(--darker);
         }
-        
-        .donate-btn {
-            background: #00b4d8;
-            border: none;
-            padding: 6px 24px;
-            border-radius: 25px;
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            font-size: 1.5rem;
             transition: all 0.3s ease;
         }
 
-        .donate-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 5%;
+            }
+            
+            nav {
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+            }
+            
+            .hero {
+                padding: 150px 5% 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .project-info h3 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Loading Spinner -->
-    <div class="dc-spinner">
-        <div class="spinner"></div>
-        <div class="spinner-text">
-            <span>𝔻</span>
-            <span>𝕒</span>
-            <span>𝕧</span>
-            <span>𝕚</span>
-            <span>𝕕</span>
-            <span> </span>
-            <span>ℂ</span>
-            <span>𝕣</span>
-            <span>𝕪</span>
-            <span>𝕚</span>
-            <span>𝕝</span>
-        </div>
-    </div>
-
-    <header class="fixed-top">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <div class="logo-container" id="logoContainer">
-                    <div class="logo-flip">
-                        <div class="logo-front">
-                            <img src="https://files.catbox.moe/22m9y0.jpg" alt="Logo" style="height: 40px; border-radius: 6px;">
-                            <i class="bi bi-cpu ms-2" style="color: var(--primary-purple);"></i>
-                        </div>
-                        <div class="logo-back">
-                            David Cyril
-                        </div>
-                    </div>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="./aio">All-in-One</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./image-generator">AI Art</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./chatbot">AI Chat</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./tiktok">TikTok</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./facebook">Facebook</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./remini">Enhancer</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./spotify">Spotify</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./youtube">YouTube</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./removebg">BG Remover</a></li>
-                    </ul>
-                </div>
-            </div>
+    <header>
+        <a href="#" class="logo">
+            <i class="fas fa-code"></i>
+            <span>David Cyril Projects</span>
+        </a>
+        <nav>
+            <a href="#projects">Projects</a>
+            <a href="https://support.david-cyril.net.ng">FAQ</a>
+            <a href="#contact">Contact</a>
         </nav>
     </header>
 
-    <main>
-        <section class="hero-section">
-            <div class="container hero-content">
-                <h1 class="hero-title">Digital Innovation Hub</h1>
-                <p class="typewriter">Explore cutting-edge web solutions by David Cyril</p>
-                <a href="https://files.catbox.moe/dwwyob.jpg" class="donate-btn text-white text-decoration-none">
-                    <i class="bi bi-heart-fill me-2"></i>Donate
-                </a>
-                <div class="project-grid">
-                    <a href="./aio" class="project-card">
-                        <i class="bi bi-download project-icon"></i>
-                        <h3>All Video Downloader</h3>
-                        <p>Multi-platform media downloading solution</p>
-                    </a>
-                    <a href="./image-generator" class="project-card">
-                        <i class="bi bi-magic project-icon"></i>
-                        <h3>Image Generator</h3>
-                        <p>Generate stunning digital artwork</p>
-                    </a>
-                    <a href="./chatbot" class="project-card">
-                        <i class="bi bi-robot project-icon"></i>
-                        <h3>AI Chat</h3>
-                        <p>Advanced conversational AI interface</p>
+    <section class="hero">
+        <h1>Innovative Projects That Make a Difference</h1>
+        <p>Explore my collection of web applications, tools, and creative projects. Each project is built with modern technologies and designed for optimal user experience.</p>
+        
+        <!-- WhatsApp Button -->
+        <a href="https://www.whatsapp.com/channel/0029VaeRru3ADTOEKPCPom0L" class="whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            Follow My WhatsApp Channel
+        </a>
+    </section>
+
+    <section class="projects" id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <!-- Project 1: TikTok Downloader -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/27/27/40/272740856f06762c8dada2ed8a205fb7.jpg" alt="TikTok Downloader" class="project-img">
+                <div class="project-info">
+                    <h3>TikTok Downloader</h3>
+                    <p>High-quality TikTok video downloads without watermarks. Supports video and audio extraction with a single click.</p>
+                    <a href="https://tiktok.david-cyril.net.ng" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
                     </a>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <footer class="main-footer">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="h5">Innovation Engineered</h3>
-                    <p class="text-muted">&copy; 2025 David Cyril Tech. All rights reserved</p>
+            <!-- Project 2: URL Shortener -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/d7/d6/56/d7d656d59bf24a52ecfab7b37229453a.jpg" alt="Ai Chat Bot" class="project-img">
+                <div class="project-info">
+                    <h3>AI Chat Bot</h3>
+                    <p>Chat AI Project Developed By David Cyril</p>
+    
+                    <a href="/projects/chatbot" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 3: Weather Dashboard -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/05/cf/6d/05cf6d376202ae42d10200e48e4657b9.jpg" alt="Photo Enhancer" class="project-img">
+                <div class="project-info">
+                    <h3>Photo Enhancer</h3>
+                    <p>Transform your grainy, pixelated photos. Enhance them instantly with Remini’s advanced AI technology</p>
+                  <a href="/projects/remini" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- Project 4: E-commerce Platform -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/2c/87/eb/2c87ebf3a0fbbd168dd64a3b6b84e15e.jpg" alt="Facebook Video Downlaoder" class="project-img">
+                <div class="project-info">
+                    <h3>Faceboook Downloader<h3>
+                    <p>Download Facebook Videos and Save them directly from facebook here for free.<h3>
+                    <a href="/projects/facebook" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
+
+            <!-- Spotify Downloader -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/b9/18/1a/b9181aa3a8d68bc6f67e01de48acfe2f.jpg" alt="Spotify Downloader" class="project-img">
+                <div class="project-info">
+                    <h3>Spotify Downlaoder</h3>
+                    <p>FREE Spotify song downloader that instantly downloads your favorite tracks, playlists, and albums from Spotify in MP3 format.</p>
+                    <a href="/projects/spotify" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
+
+            <!-- Remove BG -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/5a/ae/64/5aae641d4a8cdafb7844ac0739a90fb5.jpg" alt="Recipe Finder" class="project-img">
+                <div class="project-info">
+                    <h3>Image Background Remover</h3>
+                    <p>nstantly remove image backgrounds with our AI tool.</p>
+                    <a href="/recipes" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
                 </div>
             </div>
         </div>
+    </section>
+
+    <footer id="contact">
+        <div class="social-links">
+            <a href="https://github.com/DavidCyrilTech"><i class="fab fa-github"></i></a>
+            <a href="https://t.me/davidcyriltechs"><i class="fab fa-telegram"></i></a>
+            <a href="https://www.whatsapp.com/channel/0029VaeRru3ADTOEKPCPom0L"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/@DavidCyril_TECH"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p class="copyright">© 2024 - 2099 David Cyril. All rights reserved.</p>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Show spinner on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.dc-spinner').style.display = 'block';
-            setTimeout(() => {
-                document.querySelector('.dc-spinner').style.display = 'none';
-            }, 2000);
-        });
-
-        // Logo flip animation
-        document.getElementById('logoContainer').addEventListener('click', function() {
-            this.querySelector('.logo-flip').classList.toggle('flipped');
-        });
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 </body>
 </html>

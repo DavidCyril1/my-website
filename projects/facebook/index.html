@@ -3,40 +3,428 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook Downloader</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://david-cyril.net.ng/css/fb.css">
+    <title>Facebook Video Downloader | Save Videos Without Watermark</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1877F2; /* Facebook blue */
+            --primary-hover: #166FE5;
+            --secondary: #42B72A;
+            --dark: #18191A;
+            --light: #FFFFFF;
+            --gray: #E4E6EB;
+            --card-bg: #242526;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 32px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .download-form {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group {
+            display: flex;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            font-size: 16px;
+            background: #3E4042;
+            color: var(--light);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            background: #4E5052;
+        }
+
+        .input-group button {
+            padding: 0 25px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-group button:hover {
+            background: var(--primary-hover);
+        }
+
+        .result-container {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-preview {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 50px;
+            opacity: 0.8;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .download-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .download-btn.sd {
+            background: var(--primary);
+            color: white;
+        }
+
+        .download-btn.sd:hover {
+            background: var(--primary-hover);
+        }
+
+        .download-btn.hd {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .download-btn.hd:hover {
+            background: #36A420;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .download-form {
+                padding: 20px;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .input-group input {
+                border-radius: 8px 8px 0 0;
+            }
+            
+            .input-group button {
+                border-radius: 0 0 8px 8px;
+                padding: 15px;
+            }
+            
+            .download-options {
+                flex-direction: column;
+            }
+            
+            .download-btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Facebook Downloader</h1>
-        <p>Download Facebook videos effortlessly in HD or SD quality.</p>
-        <div class="input-container">
-            <input type="text" id="videoUrl" placeholder="Paste Facebook Video URL here">
-            <button id="downloadButton">Fetch</button>
-        </div>
+        <header>
+            <div class="logo">
+                <i class="fab fa-facebook"></i>
+                <h1>Facebook Video Downloader</h1>
+            </div>
+            <p class="subtitle">Download high-quality Facebook videos without watermark directly to your device</p>
+        </header>
 
-        <!-- Loading Spinner -->
-        <div id="loadingSpinner" class="spinner" style="display: none;"></div>
-
-        <!-- Video Details -->
-        <div id="videoDetails" class="video-details" style="display: none;">
-            <img id="thumbnail" alt="Video Thumbnail">
-            <h3 id="videoTitle">Facebook Video</h3>
-            <div class="download-buttons">
-                <a id="downloadHD" class="button" target="_blank">Download HD</a>
-                <a id="downloadSD" class="button" target="_blank">Download SD</a>
+        <div class="download-form">
+            <div class="form-group">
+                <label for="fb-url">Facebook Video URL</label>
+                <div class="input-group">
+                    <input type="url" id="fb-url" placeholder="https://www.facebook.com/..." required>
+                    <button id="download-btn"><i class="fas fa-download"></i> Download</button>
+                </div>
+                <div class="error-message" id="error-message"></div>
             </div>
         </div>
 
-        <!-- Error Message -->
-        <div id="errorMessage" class="error-message"></div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Processing your Facebook video...</p>
+        </div>
+
+        <div class="result-container" id="result-container">
+            <div class="video-preview">
+                <img src="" alt="Video thumbnail" class="video-thumbnail" id="video-thumbnail">
+                <div class="play-icon">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="video-info">
+                <h3 class="video-title" id="video-title"></h3>
+                <div class="download-options">
+                    <button class="download-btn sd" id="sd-download">
+                        <i class="fas fa-download"></i> SD Quality
+                    </button>
+                    <button class="download-btn hd" id="hd-download">
+                        <i class="fas fa-download"></i> HD Quality
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 - David Cyril</p>
-    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadBtn = document.getElementById('download-btn');
+            const fbUrlInput = document.getElementById('fb-url');
+            const resultContainer = document.getElementById('result-container');
+            const loadingElement = document.getElementById('loading');
+            const errorMessage = document.getElementById('error-message');
+            const videoThumbnail = document.getElementById('video-thumbnail');
+            const videoTitle = document.getElementById('video-title');
+            const sdDownloadBtn = document.getElementById('sd-download');
+            const hdDownloadBtn = document.getElementById('hd-download');
 
-    <script src="https://david-cyril.net.ng/assets/fb.js"></script>
+            let videoData = null;
+
+            // Function to force download
+            function forceDownload(url, filename) {
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename || 'facebook-video.mp4';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
+            downloadBtn.addEventListener('click', fetchFacebookVideo);
+            fbUrlInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') fetchFacebookVideo();
+            });
+
+            sdDownloadBtn.addEventListener('click', function() {
+                if (videoData && videoData.video.downloads[0]) {
+                    const title = videoData.video.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                    forceDownload(videoData.video.downloads[0].downloadUrl, `facebook_${title}_sd.mp4`);
+                }
+            });
+
+            hdDownloadBtn.addEventListener('click', function() {
+                if (videoData && videoData.video.downloads[1]) {
+                    const title = videoData.video.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                    forceDownload(videoData.video.downloads[1].downloadUrl, `facebook_${title}_hd.mp4`);
+                }
+            });
+
+            function fetchFacebookVideo() {
+                const url = fbUrlInput.value.trim();
+                
+                // Validate URL
+                if (!url) {
+                    showError('Please enter a Facebook URL');
+                    return;
+                }
+                
+                if (!isValidFacebookUrl(url)) {
+                    showError('Please enter a valid Facebook video URL');
+                    return;
+                }
+                
+                // Hide previous results and errors
+                resultContainer.style.display = 'none';
+                hideError();
+                loadingElement.style.display = 'block';
+                
+                // Encode the URL for the API
+                const encodedUrl = encodeURIComponent(url);
+                const apiUrl = `https://apis.davidcyriltech.my.id/facebook2?url=${encodedUrl}`;
+                
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.status) {
+                            videoData = data;
+                            displayResult(data);
+                        } else {
+                            throw new Error('Failed to fetch Facebook video data');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showError('Failed to download Facebook video. Please check the URL and try again.');
+                    })
+                    .finally(() => {
+                        loadingElement.style.display = 'none';
+                    });
+            }
+            
+            function isValidFacebookUrl(url) {
+                return /facebook\.com/i.test(url);
+            }
+            
+            function displayResult(data) {
+                // Set video thumbnail
+                videoThumbnail.src = data.video.thumbnail;
+                
+                // Set video title
+                videoTitle.textContent = data.video.title;
+                
+                // Show result container
+                resultContainer.style.display = 'block';
+                
+                // Scroll to results
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+            
+            function hideError() {
+                errorMessage.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

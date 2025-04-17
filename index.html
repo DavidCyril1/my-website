@@ -1,1 +1,253 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>David Cyril</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="David Cyril Offical Web">
+  <meta name="keywords" content="David Cyril, Portfoilo">
+  <link href="https://files.catbox.moe/4hq1u5.jpg" rel="icon">
+  <link href="https://files.catbox.moe/4hq1u5.jpg" rel="apple-touch-icon">
+  <!-- TailwindCSS dan GSAP -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  
+  <style>
+    /* Global Styling */
+    body {
+      background: linear-gradient(135deg, #0d0d0d, #1a1a40, #002766);
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.5s, color 0.5s;
+    }
+    nav {
+      z-index: 1000;
+    }
+    /* Efek Glass untuk elemen konten */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      /* Untuk fade-in saat scroll */
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    .glow-text {
+      text-shadow: 0 0 10px #6a0dad, 0 0 20px #0033cc;
+    }
+    .btn-custom {
+      background: linear-gradient(90deg, #6a0dad, #0033cc);
+      padding: 12px 20px;
+      border-radius: 30px;
+      transition: transform 0.3s;
+      color: #fff;
+    }
+    .btn-custom:hover {
+      transform: scale(1.1);
+    }
+    /* Efek pada Nav Link saat hover */
+    nav a {
+      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+    nav a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px #6a0dad;
+      transform: scale(1.1);
+    }
+    img {
+        width: 21px;
+        height: 21px;
+    }
+    /* Container untuk pergerakan horizontal kemampuan */
+    .skill-wrapper {
+      /*overflow: hidden;*/
+      white-space: nowrap;
+      position: relative;
+    }
+    /* Footer dengan gradient */
+    footer {
+      background: linear-gradient(to right, #6a0dad, #0033cc);
+      color: #ffffff;
+    }
+    /* Tema Light mode */
+    .light-mode {
+      background: #f5f5f5;
+      color: #333333;
+    }
+    .light-mode .glass {
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .light-mode .glow-text {
+      text-shadow: none;
+      color: #333333;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full backdrop-blur-lg bg-opacity-20 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl glow-text font-bold">David Cyril</h1>
+      <button onclick="toggleTheme()" class="btn-custom ml-4">
+        <img id="sun-icon" src="https://files.catbox.moe/0t6crq.png"></img>
+        <img id="moon-icon" src="https://files.catbox.moe/9rwrpq.png"></img>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="h-screen flex flex-col justify-center items-center text-center">
+    <h1 class="text-5xl glow-text font-bold">Welcome To David Cyril Official Website<span class="text-purple-400"></span></h1>
+    <!-- Tempat teks animasi (typing effect) -->
+    <p class="p-6 text-lg hero-text"></p>
+    <a href="/projects" class="btn-custom">Projects</a>
+  </section>
+
+  <!-- Skill Section -->
+  <section id="skills" class="container mx-auto p-10 text-center overflow-hidden relative">
+  <h2 class="text-3xl font-bold mb-6">Skill</h2>
+  <div class="skill-wrapper w-full">
+    <div class="skill-list flex space-x-6">
+      <!-- HTML -->
+      <div class="glass p-6 min-w-[150px] text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML" class="w-12 h-12 mx-auto mb-2">
+        <p>HTML</p>
+      </div>
+      <!-- CSS -->
+      <div class="glass p-6 min-w-[150px] text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="CSS" class="w-12 h-12 mx-auto mb-2">
+        <p>CSS</p>
+      </div>
+      <!-- JavaScript -->
+      <div class="glass p-6 min-w-[150px] text-center">
+        <img src="https://files.catbox.moe/ihjzzz.png" alt="JavaScript" class="w-12 h-12 mx-auto mb-2">
+        <p>JavaScript</p>
+      </div>
+      <!-- Python -->
+      <div class="glass p-6 min-w-[150px] text-center">
+        <img src="https://files.catbox.moe/ggw1gm.png" alt="Python" class="w-12 h-12 mx-auto mb-2">
+        <p>Python</p>
+      </div>
+      <!-- Node.js -->
+      <div class="glass p-6 min-w-[150px] text-center">
+        <img src="https://files.catbox.moe/2cxdpq.png" alt="Node.js" class="w-12 h-12 mx-auto mb-2">
+        <p>Node.js</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Komunitas -->
+  <section id="community" class="container mx-auto p-10 text-center">
+    <h2 class="text-3xl font-bold">Contact Me</h2>
+    <div class="glass p-6 mt-6">
+      <p>Useful Links:</p>
+      <div class="flex justify-center space-x-6 mt-4">
+        <a href="https://github.com/DavidCyrilTech" target="_blank">
+          <img src="https://files.catbox.moe/7sg4m9.png" alt="GitHub" class="w-8 h-8" loading="lazy">
+        </a>
+        <a href="https://www.whatsapp.com/channel/0029VaeRru3ADTOEKPCPom0L" target="_blank">
+          <img src="https://files.catbox.moe/0erb8h.png" alt="LinkedIn" class="w-8 h-8" loading="lazy">
+        </a>
+        <a href="davidcyril209@gmail.com" target="_blank">
+          <img src="https://files.catbox.moe/s1555j.png" alt="LinkedIn" class="w-8 h-8" loading="lazy">
+        </a>
+        <a href="https://www.youtube.com/@DavidCyril_TECH" target="_blank">
+          <img src="https://files.catbox.moe/k273su.png" alt="LinkedIn" class="w-8 h-8" loading="lazy">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6">
+    <p>&copy; 2024 - 2099 David Cyril. All Copyrights Reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    /* Text Typing Animation for Hero Section */
+    const text = "Here you can find some of my projects.";
+    const heroText = document.querySelector('.hero-text');
+    let i = 0;
+    function typeEffect() {
+      if(i < text.length) {
+        heroText.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 100);
+      }
+    }
+    typeEffect();
+
+    /* Infinite Loop Animation for Skill Section menggunakan JavaScript */
+const skillList = document.querySelector('.skill-list');
+skillList.innerHTML += skillList.innerHTML; // Duplikasi konten
+const skillWidth = skillList.scrollWidth / 2; // Lebar asli konten
+let position = 0;
+
+function animateSkills() {
+  position -= 1; // Kecepatan pergeseran
+  skillList.style.transform = `translateX(${position}px)`;
+  
+  // Ketika animasi melewati ujung, kembalikan ke posisi awal tanpa terlihat reset
+  if (Math.abs(position) >= skillWidth) {
+    position = 0;
+  }
+  
+  requestAnimationFrame(animateSkills);
+}
+
+animateSkills();
+
+    /* Fade-in Effect: Munculkan elemen .glass saat muncul di viewport */
+    function revealOnScroll() {
+      const glassElements = document.querySelectorAll('.glass');
+      glassElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 50) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    /* Toggle Dark/Light Mode dan Update Ikon */
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+  const themeIcon = document.getElementById('theme-icon');
+  const sunIcon = document.getElementById('sun-icon');
+  const moonIcon = document.getElementById('moon-icon');
+
+  if (document.body.classList.contains('light-mode')) {
+    sunIcon.style.display = 'block';
+    moonIcon.style.display = 'none';
+  } else {
+    sunIcon.style.display = 'none';
+    moonIcon.style.display = 'block';
+  }
+}
+
+// Set ikon awal
+document.addEventListener('DOMContentLoaded', () => {
+  const sunIcon = document.getElementById('sun-icon');
+  const moonIcon = document.getElementById('moon-icon');
+  sunIcon.style.display = 'none'; // Default adalah mode gelap (bulan ditampilkan)
+  moonIcon.style.display = 'block';
+});
+
+  </script>
+</body>
+</html>

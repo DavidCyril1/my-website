@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APK Downloader | Madr By David Cyril</title>
+    <title>APK Downloader | Made By David Cyril</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -430,7 +431,7 @@
     </div>
 
     <script>
-        // DOM elements
+
         const searchForm = document.getElementById('searchForm');
         const appQueryInput = document.getElementById('appQuery');
         const loading = document.getElementById('loading');
@@ -440,7 +441,7 @@
         const appTitle = document.getElementById('appTitle');
         const downloadLink = document.getElementById('downloadLink');
         
-        // Form submission
+      
         searchForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const query = appQueryInput.value.trim();
@@ -449,9 +450,9 @@
             }
         });
         
-        // Fetch APK function
+    
         async function fetchAPK(query) {
-            // Show loading state
+           
             loading.classList.add('active');
             errorMessage.classList.remove('active');
             results.classList.remove('active');
@@ -461,16 +462,15 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Display results
+                  
                     appThumbnail.src = data.thumbnail;
                     appTitle.textContent = data.apk_name;
                     downloadLink.href = data.download_link;
-                    
-                    // Set download filename
+                 
                     const filename = data.apk_name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
                     downloadLink.download = `${filename}.apk`;
                     
-                    // Show results
+                    
                     loading.classList.remove('active');
                     results.classList.add('active');
                 } else {
@@ -491,7 +491,7 @@
             }, 5000);
         }
         
-        // Auto-focus input on page load
+      
         window.addEventListener('load', () => {
             appQueryInput.focus();
         });

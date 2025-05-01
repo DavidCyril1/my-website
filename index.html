@@ -1,257 +1,509 @@
-
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>David Cyril</title>
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="David Cyril Offical Web">
-    <meta name="keywords" content="David Cyril, Portfoilo">
+    <title>David Cyril | Projects</title>
     <!-- AdSense Code -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6690222744270600"
-       crossorigin="anonymous"></script>
-    <link href="https://files.catbox.moe/4hq1u5.jpg" rel="icon">
-    <link href="https://files.catbox.moe/4hq1u5.jpg" rel="apple-touch-icon">
-    <!-- TailwindCSS dan GSAP -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  
-  <style>
-    /* Global Styling */
-    body {
-      background: linear-gradient(135deg, #0d0d0d, #1a1a40, #002766);
-      color: #ffffff;
-      font-family: 'Poppins', sans-serif;
-      transition: background 0.5s, color 0.5s;
-    }
-    nav {
-      z-index: 1000;
-    }
-    /* Efek Glass untuk elemen konten */
-    .glass {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      padding: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      /* Untuk fade-in saat scroll */
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.6s, transform 0.6s;
-    }
-    .visible {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
-    .glow-text {
-      text-shadow: 0 0 10px #6a0dad, 0 0 20px #0033cc;
-    }
-    .btn-custom {
-      background: linear-gradient(90deg, #6a0dad, #0033cc);
-      padding: 12px 20px;
-      border-radius: 30px;
-      transition: transform 0.3s;
-      color: #fff;
-    }
-    .btn-custom:hover {
-      transform: scale(1.1);
-    }
-    /* Efek pada Nav Link saat hover */
-    nav a {
-      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-    }
-    nav a:hover {
-      color: #ffffff;
-      text-shadow: 0 0 10px #6a0dad;
-      transform: scale(1.1);
-    }
-    img {
-        width: 21px;
-        height: 21px;
-    }
-    /* Container untuk pergerakan horizontal kemampuan */
-    .skill-wrapper {
-      /*overflow: hidden;*/
-      white-space: nowrap;
-      position: relative;
-    }
-    /* Footer dengan gradient */
-    footer {
-      background: linear-gradient(to right, #6a0dad, #0033cc);
-      color: #ffffff;
-    }
-    /* Tema Light mode */
-    .light-mode {
-      background: #f5f5f5;
-      color: #333333;
-    }
-    .light-mode .glass {
-      background: rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    .light-mode .glow-text {
-      text-shadow: none;
-      color: #333333;
-    }
-  </style>
+     crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #25D366; /* WhatsApp green */
+            --primary-dark: #128C7E;
+            --secondary: #075E54;
+            --accent: #FFD700;
+            --dark: #121212;
+            --darker: #0A0A0A;
+            --light: #FFFFFF;
+            --gray: #B0B0B0;
+            --card-bg: #1E1E1E;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 0.05) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 0.05) 0px, transparent 50%);
+        }
+
+        /* Header */
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            background: rgba(18, 18, 18, 0.95);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 5% 80px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--accent), var(--light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--primary);
+            color: var(--light);
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            margin: 20px 0;
+        }
+
+        .whatsapp-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Projects Grid */
+        .projects {
+            padding: 60px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            border-radius: 3px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            padding: 30px;
+        }
+
+        .project-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .project-info p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tag {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--accent);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .visit-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: var(--light);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .visit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .visit-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 5% 30px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--gray);
+            background: var(--darker);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 5%;
+            }
+            
+            nav {
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+            }
+            
+            .hero {
+                padding: 150px 5% 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .project-info h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Navbar -->
-  <nav class="fixed top-0 w-full backdrop-blur-lg bg-opacity-20 p-4">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-xl glow-text font-bold">David Cyril</h1>
-      <button onclick="toggleTheme()" class="btn-custom ml-4">
-        <img id="sun-icon" src="https://files.catbox.moe/0t6crq.png"></img>
-        <img id="moon-icon" src="https://files.catbox.moe/9rwrpq.png"></img>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="h-screen flex flex-col justify-center items-center text-center">
-    <h1 class="text-5xl glow-text font-bold">Welcome To David Cyril Official Website<span class="text-purple-400"></span></h1>
-    <!-- Tempat teks animasi (typing effect) -->
-    <p class="p-6 text-lg hero-text"></p>
-    <a href="/projects" class="btn-custom">Projects</a>
-  </section>
-
-  <!-- Skill Section -->
-  <section id="skills" class="container mx-auto p-10 text-center overflow-hidden relative">
-  <h2 class="text-3xl font-bold mb-6">Skill</h2>
-  <div class="skill-wrapper w-full">
-    <div class="skill-list flex space-x-6">
-      <!-- HTML -->
-      <div class="glass p-6 min-w-[150px] text-center">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML" class="w-12 h-12 mx-auto mb-2">
-        <p>HTML</p>
-      </div>
-      <!-- CSS -->
-      <div class="glass p-6 min-w-[150px] text-center">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="CSS" class="w-12 h-12 mx-auto mb-2">
-        <p>CSS</p>
-      </div>
-      <!-- JavaScript -->
-      <div class="glass p-6 min-w-[150px] text-center">
-        <img src="https://files.catbox.moe/ihjzzz.png" alt="JavaScript" class="w-12 h-12 mx-auto mb-2">
-        <p>JavaScript</p>
-      </div>
-      <!-- Python -->
-      <div class="glass p-6 min-w-[150px] text-center">
-        <img src="https://files.catbox.moe/ggw1gm.png" alt="Python" class="w-12 h-12 mx-auto mb-2">
-        <p>Python</p>
-      </div>
-      <!-- Node.js -->
-      <div class="glass p-6 min-w-[150px] text-center">
-        <img src="https://files.catbox.moe/2cxdpq.png" alt="Node.js" class="w-12 h-12 mx-auto mb-2">
-        <p>Node.js</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-  <!-- Komunitas -->
-  <section id="community" class="container mx-auto p-10 text-center">
-    <h2 class="text-3xl font-bold">Contact Me</h2>
-    <div class="glass p-6 mt-6">
-      <p>Useful Links:</p>
-      <div class="flex justify-center space-x-6 mt-4">
-        <a href="https://github.com/DavidCyrilTech" target="_blank">
-          <img src="https://files.catbox.moe/7sg4m9.png" alt="GitHub" class="w-8 h-8" loading="lazy">
+    <header>
+        <a href="#" class="logo">
+            <i class="fas fa-code"></i>
+            <span>David Cyril Projects</span>
         </a>
-        <a href="https://www.whatsapp.com/channel/0029VaeRru3ADTOEKPCPom0L" target="_blank">
-          <img src="https://files.catbox.moe/0erb8h.png" alt="LinkedIn" class="w-8 h-8" loading="lazy">
+        <nav>
+            <a href="#projects">Projects</a>
+            <a href="https://support.david-cyril.net.ng">FAQ</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Innovative Projects That Make a Difference</h1>
+        <p>Explore my collection of web applications, tools, and creative projects. Each project is built with modern technologies and designed for optimal user experience.</p>
+        
+        <!-- WhatsApp Button -->
+        <a href="https://www.whatsapp.com/channel/0029VaeRru3ADTOEKPCPom0L" class="whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            Follow My WhatsApp Channel
         </a>
-        <a href="davidcyril209@gmail.com" target="_blank">
-          <img src="https://files.catbox.moe/s1555j.png" alt="LinkedIn" class="w-8 h-8" loading="lazy">
-        </a>
-        <a href="https://www.youtube.com/@DavidCyril_TECH" target="_blank">
-          <img src="https://files.catbox.moe/k273su.png" alt="LinkedIn" class="w-8 h-8" loading="lazy">
-        </a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="text-center py-6">
-    <p>&copy; 2024 - 2099 David Cyril. All Copyrights Reserved.</p>
-  </footer>
+    <section class="projects" id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <!-- Project 1: TikTok Downloader -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/27/27/40/272740856f06762c8dada2ed8a205fb7.jpg" alt="TikTok Downloader" class="project-img">
+                <div class="project-info">
+                    <h3>TikTok Downloader</h3>
+                    <p>High-quality TikTok video downloads without watermarks. Supports video and audio extraction with a single click.</p>
+                    <a href="https://tiktok.david-cyril.net.ng" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
 
-  <!-- JavaScript -->
-  <script>
-    /* Text Typing Animation for Hero Section */
-    const text = "Here you can find some of my projects.";
-    const heroText = document.querySelector('.hero-text');
-    let i = 0;
-    function typeEffect() {
-      if(i < text.length) {
-        heroText.innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeEffect, 100);
-      }
-    }
-    typeEffect();
+            <!-- Project 2: URL Shortener -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/d7/d6/56/d7d656d59bf24a52ecfab7b37229453a.jpg" alt="Ai Chat Bot" class="project-img">
+                <div class="project-info">
+                    <h3>AI Chat Bot</h3>
+                    <p>Chat AI Project Developed By David Cyril</p>
+    
+                    <a href="/projects/chatbot" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
 
-    /* Infinite Loop Animation for Skill Section menggunakan JavaScript */
-const skillList = document.querySelector('.skill-list');
-skillList.innerHTML += skillList.innerHTML; // Duplikasi konten
-const skillWidth = skillList.scrollWidth / 2; // Lebar asli konten
-let position = 0;
+            <!-- Project 3: Weather Dashboard -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/05/cf/6d/05cf6d376202ae42d10200e48e4657b9.jpg" alt="Photo Enhancer" class="project-img">
+                <div class="project-info">
+                    <h3>Photo Enhancer</h3>
+                    <p>Transform your grainy, pixelated photos. Enhance them instantly with Remini’s advanced AI technology</p>
+                  <a href="/projects/remini" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
 
-function animateSkills() {
-  position -= 1; // Kecepatan pergeseran
-  skillList.style.transform = `translateX(${position}px)`;
-  
-  // Ketika animasi melewati ujung, kembalikan ke posisi awal tanpa terlihat reset
-  if (Math.abs(position) >= skillWidth) {
-    position = 0;
-  }
-  
-  requestAnimationFrame(animateSkills);
-}
 
-animateSkills();
+            <!-- Project 4: E-commerce Platform -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/2c/87/eb/2c87ebf3a0fbbd168dd64a3b6b84e15e.jpg" alt="Facebook Video Downlaoder" class="project-img">
+                <div class="project-info">
+                    <h3>Faceboook Downloader<h3>
+                    <p>Download Facebook Videos and Save them directly from facebook here for free.<h3>
+                    <a href="/projects/facebook" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
 
-    /* Fade-in Effect: Munculkan elemen .glass saat muncul di viewport */
-    function revealOnScroll() {
-      const glassElements = document.querySelectorAll('.glass');
-      glassElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if(rect.top < window.innerHeight - 50) {
-          el.classList.add('visible');
-        }
-      });
-    }
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll);
+            <!-- Spotify Downloader -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/b9/18/1a/b9181aa3a8d68bc6f67e01de48acfe2f.jpg" alt="Spotify Downloader" class="project-img">
+                <div class="project-info">
+                    <h3>Spotify Downlaoder</h3>
+                    <p>FREE Spotify song downloader that instantly downloads your favorite tracks, playlists, and albums from Spotify in MP3 format.</p>
+                    <a href="/projects/spotify" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
 
-    /* Toggle Dark/Light Mode dan Update Ikon */
-function toggleTheme() {
-  document.body.classList.toggle('light-mode');
-  const themeIcon = document.getElementById('theme-icon');
-  const sunIcon = document.getElementById('sun-icon');
-  const moonIcon = document.getElementById('moon-icon');
 
-  if (document.body.classList.contains('light-mode')) {
-    sunIcon.style.display = 'block';
-    moonIcon.style.display = 'none';
-  } else {
-    sunIcon.style.display = 'none';
-    moonIcon.style.display = 'block';
-  }
-}
+             <!-- Remove BG -->
+             <div class="project-card">
+                <img src="https://i.pinimg.com/474x/92/eb/9e/92eb9e937624b4c49d6e303e834b7ec2.jpg" alt="Temp Mail" class="project-img">
+                <div class="project-info">
+                    <h3>Temp Mail Generator</h3>
+                    <p>Temp Mail provides temporary, anonymous, free, secure, disposable email address. You can use on facebook, twitter or instagram for anonymously.</p>
+                    <a href="https://tempmail.david-cyril.net.ng" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
 
-// Set ikon awal
-document.addEventListener('DOMContentLoaded', () => {
-  const sunIcon = document.getElementById('sun-icon');
-  const moonIcon = document.getElementById('moon-icon');
-  sunIcon.style.display = 'none'; // Default adalah mode gelap (bulan ditampilkan)
-  moonIcon.style.display = 'block';
-});
+            <!-- Remove BG -->
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/5a/ae/64/5aae641d4a8cdafb7844ac0739a90fb5.jpg" alt="Youtube Downlaoder" class="project-img">
+                <div class="project-info">
+                    <h3>Image Background Remover</h3>
+                    <p>Instantly remove image backgrounds with our AI tool.</p>
+                    <a href="/projects/removebg" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
 
-  </script>
+            <div class="project-card">
+                <img src="https://files.catbox.moe/k0pbyt.jpg" alt="Youtube Downloader" class="project-img">
+                <div class="project-info">
+                    <h3>Youtube Downloader</h3>
+                    <p>The Best Free YouTube Video Downloader! Paste a YouTube URL to start downloading now—fast, no ads, and unlimited.</p>
+                    <a href="/projects/youtube" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://i.pinimg.com/564x/a9/46/80/a946805f26c6099f6225845271fa78d6.jpg" alt="Ai Image Generator" class="project-img">
+                <div class="project-info">
+                    <h3>Ai Image Generator</h3>
+                    <p>Bring your imagination to life with our Free Online AI Image Generator.</p>
+                    <a href="/projects/image-generator" class="visit-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="social-links">
+            <a href="https://github.com/DavidCyrilTech"><i class="fab fa-github"></i></a>
+            <a href="https://t.me/davidcyriltechs"><i class="fab fa-telegram"></i></a>
+            <a href="https://www.whatsapp.com/channel/0029VaeRru3ADTOEKPCPom0L"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/@DavidCyril_TECH"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p class="copyright">© 2024 - 2099 David Cyril. All rights reserved.</p>
+    </footer>
 </body>
 </html>

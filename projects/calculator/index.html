@@ -315,11 +315,11 @@
         function calculate() {
             try {
                 let expr = currentExpression + currentResult;
-                expr = expr.replace(/\^/g, '**'); // Convert ^ to ** for exponentiation
+                expr = expr.replace(/\^/g, '**'); 
                 expr = expr.replace(/π/g, Math.PI.toString());
                 
                 if (expr.includes('Math.sqrt(')) {
-                    // Handle square roots
+                 
                     expr = expr.replace(/Math.sqrt\(([^)]+)\)/g, (match, inner) => {
                         return `Math.sqrt(${eval(inner)})`;
                     });
@@ -345,7 +345,7 @@
             themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
         });
 
-        // Keyboard support
+
         document.addEventListener('keydown', (e) => {
             const key = e.key;
             if (/[0-9]/.test(key)) appendNumber(key);

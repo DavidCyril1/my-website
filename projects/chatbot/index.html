@@ -482,7 +482,7 @@
                 // Simulate API call delay
                 setTimeout(async () => {
                     try {
-                        const response = await fetch(`https://apis.davidcyriltech.my.id/ai/gpt4?text=${encodeURIComponent(message)}`);
+                        const response = await fetch(`https://apis.davidcyriltech.my.id/ai/gpt4?text=${encodeURIComponent(message)}&davidcyril999`);
                         const data = await response.json();
                         
                         removeTypingIndicator();

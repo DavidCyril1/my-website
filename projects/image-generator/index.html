@@ -594,13 +594,13 @@
                 let apiUrl;
                 switch(currentModel) {
                     case 'fluxpro':
-                        apiUrl = `https://apis.davidcyriltech.my.id/fluxpro?prompt=${encodeURIComponent(prompt)}`;
+                        apiUrl = `https://apis.davidcyriltech.my.id/fluxpro?prompt=${encodeURIComponent(prompt)}&apikey=davidcyril999`;
                         break;
                     case 'diffusion':
-                        apiUrl = `https://apis.davidcyriltech.my.id/diffusion?prompt=${encodeURIComponent(prompt)}`;
+                        apiUrl = `https://apis.davidcyriltech.my.id/diffusion?prompt=${encodeURIComponent(prompt)}&apikey=davidcyril999`;
                         break;
                     default:
-                        apiUrl = `https://apis.davidcyriltech.my.id/flux?prompt=${encodeURIComponent(prompt)}`;
+                        apiUrl = `https://apis.davidcyriltech.my.id/flux?prompt=${encodeURIComponent(prompt)}&apikey=davidcyril999`;
                 }
                 
                 const response = await fetch(apiUrl);

@@ -1,109 +1,63 @@
 # David Cyril Portfolio — davidcyril.name.ng
 
 ## Overview
-A fully rebuilt personal portfolio site for David Cyril. Static site served via Python `http.server` on port 5000.
+A fully rebuilt personal portfolio site for David Cyril (19-year-old Full Stack Developer, Abuja Nigeria). Static site served via Python `http.server` on port 5000.
 
-## Tech Stack
-- Pure HTML, CSS, Vanilla JavaScript (static site)
-- Python http.server for serving (port 5000, bound to 0.0.0.0)
-- No build step required
+## Architecture
+- **Type**: Static HTML/CSS/JS (no framework, no build step)
+- **Server**: `python3 -m http.server 5000 --bind 0.0.0.0`
+- **Workflow**: "Start application"
+- **API Base**: `https://apis.davidcyril.name.ng`
 
-## Structure
-```
-/
-├── index.html          — Portfolio homepage (hero, about, 40+ projects grid, services, contact)
-├── css/shared.css      — Design system: dark theme, gold accent (#FFD700), shared components
-├── <project>/          — 44 project directories, each with index.html
-└── projects/           — Old project directory (unused)
-```
+## Design System
+- **Theme**: Dark (#0F0F0F / #0a0a0a), Gold accents (#FFD700 / #FF9500)
+- **Font**: Poppins (Google Fonts)
+- **Framework**: Bootstrap 5.3.2 + Font Awesome 6.5.1
+- **Style**: Glassmorphism cards, animated floating orbs background
+- **Photo**: `https://files.catbox.moe/4hq1u5.jpg`
 
-## API Base
-All dynamic projects use: `https://apis.davidcyril.name.ng`
+## Pages
+### Homepage (`/index.html`)
+- Fixed navbar with scroll effect + active link highlighting
+- Hero section: photo, typewriter role animation, gold gradient name
+- Stats bar with animated counters (40+ projects, 100+ clients, 3+ years, 20+ APIs)
+- Project grid with filter tabs (All / Downloaders / AI / Image / Utilities) — 22 project cards
+- About section with skills + timeline
+- Services section (4 cards)
+- Contact section with WhatsApp + email
+- WhatsApp FAB button
+- Scroll reveal animations
 
-Available endpoints:
-- `/deepseek-v3` — AI chat (DeepSeek)
-- `/gemini` — AI chat (Gemini)
-- `/ytmp4`, `/ytmp3` — YouTube downloader
-- `/tiktok` — TikTok downloader
-- `/facebook` — Facebook downloader
-- `/spotifydl` — Spotify downloader
-- `/aio` — All-in-one social downloader
-- `/apk` — APK downloader
-- `/instagram` — Instagram downloader
-- `/twitter` — Twitter/X downloader
-- `/pinterest` — Pinterest downloader
-- `/lyrics` — Song lyrics
-- `/weather` — Weather data
-- `/random/quotes` — Random quotes
-- `/removebg` — Background removal
-- `/temp-mail` — Temp mail
-- `/search/wallpaper` — Wallpaper search
-- ImgBB key (for uploads): `1fe5c36a643f15d1e5478c716f876a4c`
+### Project Pages (`/projects/*/index.html`) — 20 total
+All share: dark glassmorphism card, 3 animated color orbs, platform-specific gradient, loading dual-ring spinner, result card, Home button
 
-## All Project Pages (44 total)
-| Page | Type | Description |
-|------|------|-------------|
-| chatbot | API | AI chatbot (DeepSeek + Gemini) |
-| gemini | API | Gemini AI chat |
-| youtube | API | YouTube MP4/MP3 downloader |
-| tiktok | API | TikTok video downloader |
-| facebook | API | Facebook video downloader |
-| spotify | API | Spotify track downloader |
-| instagram | API | Instagram downloader |
-| twitter | API | Twitter/X downloader |
-| pinterest | API | Pinterest downloader |
-| aio | API | All-in-one social downloader |
-| apk | API | APK downloader |
-| weather | API | Weather app |
-| quotes | API | Random quotes |
-| tempmail | API | Temporary email |
-| removebg | API | Background remover |
-| remini | API | Image enhancer |
-| wallpaper | API | Wallpaper search |
-| lyrics | API | Song lyrics finder |
-| calculator | Tool | Scientific calculator |
-| password | Tool | Password generator |
-| bmi | Tool | BMI calculator |
-| age | Tool | Age calculator |
-| colorpicker | Tool | Color picker + palette |
-| wordcount | Tool | Word/character counter |
-| base64 | Tool | Base64 encoder/decoder |
-| json | Tool | JSON formatter/validator |
-| pomodoro | Tool | Pomodoro timer |
-| todo | Tool | Todo list (localStorage) |
-| notes | Tool | Notes app (localStorage) |
-| stopwatch | Tool | Stopwatch + countdown timer |
-| typing | Tool | Typing speed test |
-| qrcode | Tool | QR code generator |
-| morse | Tool | Morse code translator + audio |
-| unit | Tool | Unit converter (8 categories) |
-| gradient | Tool | CSS gradient generator |
-| tip | Tool | Tip calculator + bill splitter |
-| binary | Tool | Number base converter |
-| loan | Tool | Loan calculator + amortization |
-| random | Tool | Random generator (8 types) |
-| regex | Tool | Regex tester |
-| markdown | Tool | Markdown editor (live preview) |
-| invoice | Tool | Invoice generator (PDF print) |
-| obfuscator | Tool | JavaScript obfuscator |
+| Page | Route | API Endpoint |
+|------|-------|-------------|
+| YouTube | /projects/youtube/ | /download/ytmp4 or /download/ytmp3 |
+| TikTok | /projects/tiktok/ | /download/tiktok |
+| Instagram | /projects/instagram/ | /instagram |
+| Facebook | /projects/facebook/ | /facebook |
+| Spotify | /projects/spotify/ | /spotifydl |
+| Twitter/X | /projects/twitter/ | /twitter |
+| Pinterest | /projects/pinterest/ | /download/pinterest |
+| SoundCloud | /projects/soundcloud/ | /download/soundcloud |
+| Terabox | /projects/terabox/ | /download/terabox |
+| MediaFire | /projects/mediafire/ | /mediafire |
+| All-in-One | /projects/aio/ | /download/aio |
+| AI Chatbot | /projects/chatbot/ | /ai/{model} (POST) — 10 models |
+| Image Generator | /projects/imagegen/ | /imagegen |
+| Image-to-Image | /projects/img2img/ | /imageToImage/seedream or /gpt-image-2 |
+| Remove BG | /projects/removebg/ | /removebg (POST multipart or JSON) |
+| Temp Mail | /projects/tempmail/ | /temp-mail (generate + inbox) |
+| YT Summarizer | /projects/ytsum/ | /ai/yt-summarize |
+| Link Bypass | /projects/linkbypass/ | /bypass/linkvertise |
+| Wallpaper | /projects/wallpaper/ | /googleimage |
+| Lyrics | /projects/lyrics/ | /lyrics |
 
-## External Links (in homepage, no internal page)
-- **TikSave** → https://tiksave.name.ng
-- **Cinverse** → https://cinverse.com.ng
+## Contact Info
+- WhatsApp: +2349066528353
+- Email: Davidcyril209@gmail.com
 
-## Design System (css/shared.css)
-- Background: `#0a0a0a` / `#111`
-- Card bg: `#1a1a1a` / `#161616`
-- Accent: `#FFD700` (gold)
-- Success: `#2ed573`, Danger: `#ff4757`
-- Border radius: `12px`, Font: system-ui
-
-## Personal Info
-- Photo: `https://files.catbox.moe/4hq1u5.jpg`
-- WhatsApp: `+2349066528353`
-- Email: `Davidcyril209@gmail.com`
-
-## Workflow
-- Name: "Start application"
-- Command: `python3 -m http.server 5000 --bind 0.0.0.0`
-- Port: 5000
+## External Projects (no local pages, linked from homepage)
+- TikSave: https://tiksave.name.ng
+- Cinverse: https://cinverse.com.ng
